@@ -23,9 +23,12 @@ export class PersonComponent extends React.Component {
   }
 
   render() {
+    const { person } = this.state
     return (
       <div className="personContainer">
-        {this.state.person.name}
+        <h3>{person.name}</h3>
+        <h5>E-mail: {person.email}</h5>
+        <h5>Age: {person.age}</h5>
       </div>
     )
   }
