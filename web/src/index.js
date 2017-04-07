@@ -4,7 +4,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
-import people from './reducers/people'
+import reducer from './reducers/index'
 
 import App from './components/App'
 import Search from './containers/Search'
@@ -19,12 +19,17 @@ const startApp = (result) => {
     people: result
   }
 
-  const store = createStore(people, initialState)
+  const store = createStore(reducer, initialState)
   render(
     <Provider store={store}>
       <Router history={browserHistory}>
         <Route path="/" component={Search}>
-          <Route path="/:personId" component={Person} />
+          <Route path="/org">
+            <Route path="/org/:orgId"/>
+          </Route>
+          <Route path="/person">
+            <Route path="/person/:personId" component={Person} />
+          </Route>
         </Route>
       </Router>
     </Provider>,

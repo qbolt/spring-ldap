@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux'
-
 import people from './people'
 
-const demoApp = combineReducers({
+const reducer = combineReducers({
   people
 })
 
-export default demoApp
+export default reducer

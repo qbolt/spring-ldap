@@ -28,7 +28,7 @@ class RadioButton extends React.Component {
 
 RadioButton.propTypes = {
   label: PropTypes.string.isRequired,
-  handleRadioButtonChange: PropTypes.func.isRequired,
+  selectRadioButton: PropTypes.func.isRequired,
 };
 
 export default RadioButton;
