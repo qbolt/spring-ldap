@@ -1,0 +1,36 @@
+Babel
+-----
+Allows for development with the latest ES6 features - (transpiler demo)
+Transpiles to ES5 as well as does optimizations resulting in high quality
+  production builds
+
+Webpack
+-------
+Bundles all JS/CSS/image files (anything really) into modules. No need to worry about dependencies.
+Allows the codebase to be split up allowing for more manageable organization of code
+ and builds the codebase into chunks and those chunks are loaded on demand.
+Can optimize modules that are included in the project but not used.
+Builds and bundles all javascript files into a single file including all required dependencies.
+Minifies code for higher quality production experience.
+Source-mapping for production debugging
+Hot reloading - including CSS
+
+---------------------------------------------------------------------
+
+React
+-----
+The overall state is put in the hands of the client to allow for a snappier and more
+  responsive user experience through react components.
+Components allow for the page to be split into self-contained presentiational/container components.
+React/Redux manages the components and their state effeciently. Renders only what needs to be
+  rendered based on whether or not the state data relevant to that component has been changed.
+Works seamlessly with Babel and Webpack
+a few sites that use React - Facebook, Expedia, Pinterest, Salesforce
+  (https://github.com/facebook/react/wiki/sites-using-react)
+
+Redux
+-----
+Manages the state of the application via a single state tree
+React has built in functionality to work with redux and update
+  components as the state is updated with no extra 'hacky' state
+  management required
