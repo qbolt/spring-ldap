@@ -9,8 +9,8 @@ class RadioButton extends React.Component {
   }
 
   onChange() {
-    const { selectRadioButton, route } = this.props
-    selectRadioButton(route);
+    const { onRadioButtonSelect, route } = this.props
+    onRadioButtonSelect(route);
   }
 
   render() {

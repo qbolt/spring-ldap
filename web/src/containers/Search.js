@@ -10,17 +10,6 @@ import 'react-select/dist/react-select.css'
 import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
 
-// Array of options that will be radio buttons
-const searchOptions = [{
-    label: 'People',
-    route: 'person',
-    checked: 'checked'
-  }, {
-    label: 'Organization',
-    route: 'org',
-    checked: ''
-}]
-
 class SearchComponent extends React.Component {
 
   constructor(props) {
@@ -29,7 +18,7 @@ class SearchComponent extends React.Component {
     // Get current person based on id in url
     this.currentPerson = getPerson(location.pathname.substring(8), this.props.people)
 
-    // Set initial state
+    // Set initial component state
     this.state = {
       placeholder: 'Enter a name...',
       selectedRadioButton: 'person',
@@ -46,10 +35,10 @@ class SearchComponent extends React.Component {
 
     //bindings
     this.onInputChange = this.onInputChange.bind(this)
-    this.selectRadioButton = this.selectRadioButton.bind(this)
-    this.createRadioButton = this.createRadioButton.bind(this)
+    this.onRadioButtonSelect = this.onRadioButtonSelect.bind(this)
   }
 
+  /*************** Lifecycle methods called by react ***************/
   // Lifecycle function for when react has confirmed it will mount the component without errors
   componentWillMount() {
     this.setState({
@@ -57,27 +46,19 @@ class SearchComponent extends React.Component {
     })
   }
 
-  // Helper method for creating a radio button component
-  createRadioButton({ label, checked, route }) {
-    return (
-      <RadioButton
-        label={label}
-        key={label}
-        route={route}
-        name="searchOption"
-        selectRadioButton={this.selectRadioButton}
-        { ...checked ? { checked: 'checked' } : {}}
-      />
-    )
+  componentDidMount() {
+    this.inputRef.focus();
   }
 
-  // Creates a radio button for every searchOption
-  createRadioButtons() {
-    return searchOptions.map(this.createRadioButton)
+  componentDidUpdate() {
+    this.inputRef.focus();
   }
 
-  // Persists the toggled checkbox in state
-  selectRadioButton(route) {
+  /***************************************************************/
+
+  // Passed to and called by the RadioButton component.
+  // Persists the toggled checkbox in state and relevant data in this component state and changes route.
+  onRadioButtonSelect(route) {
     this.setState({
       selectedRadioButton: route,
       currentOptions: this.state.options[route],
@@ -97,9 +78,10 @@ class SearchComponent extends React.Component {
     return (
       <div className="searchContainer">
         <form action="">
-          {this.createRadioButtons()}
+          {createRadioButtons(this.onRadioButtonSelect)}
         </form>
         <Select
+          ref={(input) => { this.inputRef = input }}
           placeholder={this.state.placeholder}
           options={this.state.currentOptions}
           value={this.state.selectedPerson}
@@ -110,6 +92,35 @@ class SearchComponent extends React.Component {
       </div>
     )
   }
+}
+
+// Array of options that will be radio buttons
+const searchOptions = [{
+    label: 'People',   // label on button
+    route: 'person',   // append to url
+    checked: 'checked' // default checked value
+  }, {
+    label: 'Organization',
+    route: 'org',
+}]
+
+// Creates a radio button for every searchOption
+const createRadioButtons = (onRadioButtonSelect) => {
+  return searchOptions.map(option => createRadioButton(option, onRadioButtonSelect))
+}
+
+// Helper method for creating a radio button component
+const createRadioButton = ({ label, route, checked }, onRadioButtonSelect) => {
+  return (
+    <RadioButton
+      label={label}
+      key={label}
+      route={route}
+      name="searchOption"
+      onRadioButtonSelect={onRadioButtonSelect}
+      { ...checked ? { checked: 'checked' } : {}}
+    />
+  )
 }
 
 // Helper method for getting person object from people array based on id
