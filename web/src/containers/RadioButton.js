@@ -1,9 +1,15 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 class RadioButton extends React.Component {
 
-  onChange = () => {
-    const { selectRadioButton, route } = this.props;
+  constructor(props) {
+    super(props)
+
+    this.onChange = this.onChange.bind(this)
+  }
+
+  onChange() {
+    const { selectRadioButton, route } = this.props
     selectRadioButton(route);
   }
 
@@ -25,10 +31,5 @@ class RadioButton extends React.Component {
     )
   }
 }
-
-RadioButton.propTypes = {
-  label: PropTypes.string.isRequired,
-  selectRadioButton: PropTypes.func.isRequired,
-};
 
 export default RadioButton;

@@ -78,7 +78,11 @@ class SearchComponent extends React.Component {
 
   // Persists the toggled checkbox in state
   selectRadioButton(route) {
-    this.setState({ selectedRadioButton: route })
+    this.setState({
+      selectedRadioButton: route,
+      currentOptions: this.state.options[route],
+      selectedPerson: ''
+    })
     browserHistory.push('/' + route)
   }
 
