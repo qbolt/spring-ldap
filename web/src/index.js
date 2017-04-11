@@ -1,38 +1,37 @@
 import React from 'react';
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import { createStore } from 'redux'
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
+
+import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 
-import reducer from './reducers/index'
+import rootReducer from './reducers'
+import { setCurrentUser, fetchQuery } from './actions'
 
-import App from './components/App'
-import Search from './containers/Search'
-import Person from './components/Person'
+import App from './containers/App'
 
-fetch('http://localhost:8080/api/personList')
-  .then(response => response.json())
-  .then(result => startApp(result))
+const loggerMiddleware = createLogger()
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunkMiddleware, loggerMiddleware)
+)
 
-const startApp = (result) => {
-  const initialState = {
-    people: result
-  }
-
-  const store = createStore(reducer, initialState)
-  render(
-    <Provider store={store}>
-      <Router history={browserHistory}>
-        <Route path="/" component={Search}>
-          <Route path="/org">
-            <Route path="/org/:orgId"/>
-          </Route>
-          <Route path="/person">
-            <Route path="/person/:personId" component={Person} />
-          </Route>
+render(
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={App}>
+        <IndexRedirect to="users"/>
+        <Route path="/org">
+          {/* <Route path="/org/:orgId" component={Organization} /> */}
         </Route>
-      </Router>
-    </Provider>,
-    document.getElementById('root')
-  );
-}
+        <Route path="/users">
+          {/* <Route path="/users/:userId" component={User} /> */}
+        </Route>
+
+      </Route>
+    </Router>
+  </Provider>,
+  document.getElementById('root')
+);

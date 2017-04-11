@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux'
-import people from './people'
+import currentUser from './users'
+import query from './query'
+import setSearchOption from './searchOption'
 
 const reducer = combineReducers({
-  people
+  currentUser,
+  setSearchOption,
+  query
 })
 
 export default reducer

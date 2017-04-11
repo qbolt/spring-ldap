@@ -2,7 +2,9 @@ import React from 'react'
 import Select from 'react-select'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
+import { bindActionCreators } from 'redux'
 
+import { setCurrentUser } from '../actions/index'
 import RadioButton from './RadioButton'
 
 import '../app.css'
@@ -10,42 +12,30 @@ import 'react-select/dist/react-select.css'
 import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
 
-class SearchComponent extends React.Component {
+class AppComponent extends React.Component {
 
   constructor(props) {
     super(props)
 
-    // Get current person based on id in url
-    this.currentPerson = getPerson(location.pathname.substring(8), this.props.people)
-
     // Set initial component state
     this.state = {
       placeholder: 'Enter a name...',
-      selectedRadioButton: 'person',
-      selectedPerson: (this.currentPerson) ? this.currentPerson : '',
       options: {
-        person: this.props.people.map(person => {
-          return { label: person.name, value: person }
-        }),
+        users: [],
         org: []
       },
-      currentOptions: [],
-      suggestions: []
+      selectedRadioButton: 'users',
+      selectedUser: (this.currentUser) ? this.currentUser : '',
     }
 
     //bindings
-    this.onInputChange = this.onInputChange.bind(this)
+    this.onSelect = this.onSelect.bind(this)
+    this.getOptions = this.getOptions.bind(this)
     this.onRadioButtonSelect = this.onRadioButtonSelect.bind(this)
   }
 
   /*************** Lifecycle methods called by react ***************/
   // Lifecycle function for when react has confirmed it will mount the component without errors
-  componentWillMount() {
-    this.setState({
-      currentOptions: this.state.options[this.state.selectedRadioButton]
-    })
-  }
-
   componentDidMount() {
     this.inputRef.focus();
   }
@@ -53,24 +43,39 @@ class SearchComponent extends React.Component {
   componentDidUpdate() {
     this.inputRef.focus();
   }
-
   /***************************************************************/
 
   // Passed to and called by the RadioButton component.
   // Persists the toggled checkbox in state and relevant data in this component state and changes route.
   onRadioButtonSelect(route) {
-    this.setState({
-      selectedRadioButton: route,
-      currentOptions: this.state.options[route],
-      selectedPerson: ''
-    })
     browserHistory.push('/' + route)
   }
 
-  // Triggers when they select a person in the autosuggest box
-  onInputChange(person) {
-    this.setState({ selectedPerson: person })
-    browserHistory.push('/person/' + person.value.id)
+  // Triggers when user selects a person in the autosuggest box
+  onSelect(input) {
+    switch (this.state.selectedRadioButton) {
+      case 'users':
+        this.props.setCurrentUser(input.value)
+        browserHistory.push('/users/' + input.value.empId)
+        break
+      case 'org':
+        this.props.setCurrentOrg(input.value)
+        browserHistory.push('/users/' + input)
+        break;
+    }
+  }
+
+  // Triggers when user edits the input field. Calls server for new list of users to populate auto-suggest.
+  getOptions(input) {
+    if (!input) return Promise.resolve({ options: [] })
+    return fetch('http://localhost:8080/api/users/query/' + input)
+      .then(response => response.json())
+      .then(json =>
+        json.map(option => {
+            return { label: option.firstName, value: option }
+        })
+      )
+      .then(options => { return { options } })
   }
 
   // Render function that react will call
@@ -80,13 +85,11 @@ class SearchComponent extends React.Component {
         <form action="">
           {createRadioButtons(this.onRadioButtonSelect)}
         </form>
-        <Select
+        <Select.Async
           ref={(input) => { this.inputRef = input }}
+          loadOptions={input => { return this.getOptions(input)}}
           placeholder={this.state.placeholder}
-          options={this.state.currentOptions}
-          value={this.state.selectedPerson}
-          onChange={this.onInputChange}
-          noResultsText={false}
+          onChange={this.onSelect}
         />
         {this.props.children}
       </div>
@@ -96,8 +99,8 @@ class SearchComponent extends React.Component {
 
 // Array of options that will be radio buttons
 const searchOptions = [{
-    label: 'People',   // label on button
-    route: 'person',   // append to url
+    label: 'Users',   // label on button
+    route: 'users',   // append to url
     checked: 'checked' // default checked value
   }, {
     label: 'Organization',
@@ -123,24 +126,23 @@ const createRadioButton = ({ label, route, checked }, onRadioButtonSelect) => {
   )
 }
 
-// Helper method for getting person object from people array based on id
-const getPerson = (id, people) => {
-  const person = people.find(person => person.id === id)
-  return {
-    label: person ? person.name : '',
-    value: person
-  }
-}
+
 
 // Function called by redux to map the redux state to the component's props
 const mapStateToProps = (state) => {
   return {
-    people: state.people
+    currentUser: state.users.currentUser
   }
 }
 
-// Function that redux calls to connect the 'SearchComponent' to the state store using the 'mapStateToProps' function
-const Search = connect(mapStateToProps)(SearchComponent)
+// Function called by redux to map the dispatch function to different functions
+const mapPropsToDispatch = (dispatch) => {
+  return bindActionCreators({setCurrentUser}, dispatch)
+}
 
-// Export store-connected component as default module
-export default Search
+// Function that redux calls to connect the 'SearchComponent' to the
+// state store using the 'mapStateToProps' and 'mapPropsToDispatch' functions
+const App = connect(mapStateToProps, mapPropsToDispatch)(AppComponent)
+
+// Export component as default module
+export default App
