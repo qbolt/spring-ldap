@@ -13,6 +13,8 @@ class AppComponent extends React.Component {
 
   constructor() {
     super()
+
+    // Local component state
     this.state = {
       inputValue: '',
       loading: false,
@@ -20,10 +22,12 @@ class AppComponent extends React.Component {
       updatedAt: ''
     }
 
+    // bindings so I can pass the function around directly
     this.loadSuggestions = this.loadSuggestions.bind(this)
     this.selectSuggestion = this.selectSuggestion.bind(this)
   }
 
+  // loads the suggestions based on the current inputText
   loadSuggestions(event, inputValue) {
     // Save request time to avoid overwriting state with an old query that returned late.
     const requestedAt = Date.now()
@@ -41,8 +45,8 @@ class AppComponent extends React.Component {
     }
   }
 
+  // Sets local state inputValue, dispatches action to set the currentUser, and changes route.
   selectSuggestion(inputValue, user) {
-    console.log(inputValue)
     this.setState({ inputValue, items: [ user ]})
     this.props.setCurrentUser(user)
     browserHistory.push('/users/' + user.empId)
@@ -52,8 +56,6 @@ class AppComponent extends React.Component {
     return (
       <div className="userSearch">
         <Autocomplete
-          inputProps={{name: "query", id: "<q></q>uery-autocomplete"}}
-          ref="autocomplete"
           value={this.state.inputValue}
           items={this.state.suggestions}
           getItemValue={item => item.firstName + ' ' + item.lastName}

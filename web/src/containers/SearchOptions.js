@@ -10,7 +10,6 @@ class SearchOptionsComponent extends React.Component {
 
   constructor(props) {
     super(props)
-    console.log(this.props.searchOption)
 
     this.onRadioButtonSelect = this.onRadioButtonSelect.bind(this)
   }
@@ -34,11 +33,6 @@ const searchOptions = [{
     route: 'org',
 }]
 
-// Creates a radio button for every searchOption
-const createRadioButtons = (onRadioButtonSelect) => {
-  return searchOptions.map(option => createRadioButton(option, onRadioButtonSelect))
-}
-
 // Helper method for creating a radio button component
 const createRadioButton = ({ label, route, checked }, onRadioButtonSelect) => {
   return (
@@ -53,9 +47,17 @@ const createRadioButton = ({ label, route, checked }, onRadioButtonSelect) => {
   )
 }
 
+// Creates a radio button for every searchOption
+const createRadioButtons = (onRadioButtonSelect) => {
+  return searchOptions.map(option => createRadioButton(option, onRadioButtonSelect))
+}
+
 const mapStateToProps = (state) => {
   return {
-    searchOption: state.searchOption
+    searchOption: state.searchOption,
+    org: state.org,
+    user: state.user
+
   }
 }
 

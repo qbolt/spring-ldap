@@ -1,6 +1,6 @@
 import { SET_CURRENT_USER } from '../actions'
 
-const currentUser = (state = '', action) => {
+const user = (state = '', action) => {
   switch (action.type) {
     case SET_CURRENT_USER:
       return action.user
@@ -9,4 +9,4 @@ const currentUser = (state = '', action) => {
   }
 }
 
-export default currentUser
+export default user

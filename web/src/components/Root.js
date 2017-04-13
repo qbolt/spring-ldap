@@ -10,6 +10,7 @@ import App from './App'
 import UserSearch from '../containers/UserSearch'
 import OrgSearch from '../containers/OrgSearch'
 import User from '../components/User'
+import Org from '../components/Org'
 
 // Root render component. Renders all of our components within the specified routes.
 // Provider provides the store to all of the components within the application.
@@ -20,7 +21,7 @@ const Root = ({ store }) => (
       <Route path="/" component={App}>
         <IndexRedirect to="users"/>
         <Route path="/org" component={OrgSearch}>
-          {/* <Route path="/org/:orgId" component={Organization} /> */}
+          {<Route path="/org/:orgId" component={Org}/>}
         </Route>
         <Route path="/users" component={UserSearch}>
           {<Route path="/users/:userId" component={User} />}

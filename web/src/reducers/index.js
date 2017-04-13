@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
-import currentUser from './users'
-import fetch from './query'
+import org from './org'
+import user from './user'
+import fetch from './fetch'
 import searchOption from './searchOption'
 
 const reducer = combineReducers({
-  currentUser,
+  user,
+  org,
   searchOption,
   fetch
 })

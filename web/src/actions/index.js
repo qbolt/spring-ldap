@@ -1,4 +1,5 @@
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
+export const SET_CURRENT_ORG = 'SET_CURRENT_ORG'
 export const SET_SEARCH_OPTION = 'SET_SEARCH_OPTION'
 export const FETCH_QUERY = 'FETCH_QUERY'
 export const REQUEST_QUERY = 'REQUEST_QUERY'
@@ -8,6 +9,10 @@ export const RECEIVE_ORG_RESULTS = 'RECEIVE_ORG_RESULTS'
 
 export const setCurrentUser = (user) => {
   return { type: SET_CURRENT_USER, user }
+}
+
+export const setCurrentOrg = (orgId, org) => {
+  return { type: SET_CURRENT_ORG, orgId, org }
 }
 
 export const setSearchOption = (searchOption) => {
@@ -22,12 +27,12 @@ export const receiveQueryResults = (results) => {
   return { type: RECEIVE_QUERY_RESULTS, results, receivedAt: Date.now() }
 }
 
-export const requestOrg = (org) => {
-  return { type: REQUEST_ORG, org }
+export const requestOrg = (orgId) => {
+  return { type: REQUEST_ORG, orgId }
 }
 
-export const receiveOrgResults = (org) => {
-  return { type: RECEIVE_ORG_RESULTS, org, receivedAt: Date.now() }
+export const receiveOrgResults = (orgId, org) => {
+  return { type: RECEIVE_ORG_RESULTS, orgId, org, receivedAt: Date.now() }
 }
 
 export const fetchQuery = (query) => {
@@ -39,11 +44,11 @@ export const fetchQuery = (query) => {
   }
 }
 
-export const fetchOrg = (org) => {
+export const fetchOrg = (orgId) => {
   return (dispatch) => {
-    dispatch(requestOrg(org))
-    return fetch(`http://localhost:8080/api/org/${org}`)
+    dispatch(requestOrg(orgId))
+    return fetch(`http://localhost:8080/api/org/${orgId}`)
       .then(response => response.json())
-      .then(json => dispatch(receiveOrgResults))
+      .then(json => dispatch(receiveOrgResults(orgId, json)))
   }
 }
