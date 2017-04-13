@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 import currentUser from './users'
-import query from './query'
-import setSearchOption from './searchOption'
+import fetch from './query'
+import searchOption from './searchOption'
 
 const reducer = combineReducers({
   currentUser,
-  setSearchOption,
-  query
+  searchOption,
+  fetch
 })
 
 export default reducer

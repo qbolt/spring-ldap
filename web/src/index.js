@@ -1,37 +1,20 @@
-import React from 'react';
+// React imports
+import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
 
-import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
-import { createStore, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'
+// Redux store configuration
+import configureStore from './configureStore'
 
-import rootReducer from './reducers'
-import { setCurrentUser, fetchQuery } from './actions'
+// Root component
+import Root from './components/Root'
 
-import App from './containers/App'
+/****************************************/
 
-const loggerMiddleware = createLogger()
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunkMiddleware, loggerMiddleware)
-)
-
+// Store configuration and root render method.
+// Store is passed to root component, which passes it to the react-redux
+// provider, which provides the store to all of the components in the application.
+const store = configureStore()
 render(
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        <IndexRedirect to="users"/>
-        <Route path="/org">
-          {/* <Route path="/org/:orgId" component={Organization} /> */}
-        </Route>
-        <Route path="/users">
-          {/* <Route path="/users/:userId" component={User} /> */}
-        </Route>
-
-      </Route>
-    </Router>
-  </Provider>,
+  <Root store={store} />,
   document.getElementById('root')
 );

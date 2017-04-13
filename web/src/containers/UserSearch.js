@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { browserHistory } from 'react-router'
+
 import Autocomplete from 'react-autocomplete'
 
 import { fetchQuery, setCurrentUser } from '../actions'
@@ -12,7 +14,7 @@ class AppComponent extends React.Component {
   constructor() {
     super()
     this.state = {
-      inputVale: '',
+      inputValue: '',
       loading: false,
       suggestions: [],
       updatedAt: ''
@@ -23,11 +25,15 @@ class AppComponent extends React.Component {
   }
 
   loadSuggestions(event, inputValue) {
+    // Save request time to avoid overwriting state with an old query that returned late.
+    const requestedAt = Date.now()
+
     this.setState({ loading: true, inputValue })
     if (inputValue.length > 4) {      // TODO - Create shallow copy on java side for id/name so more names can be suggested
       this.props.fetchQuery(inputValue)
         .then(result => {
-          if (this.state.updatedAt < result.receivedAt)
+          console.log(result)
+          if (this.state.updatedAt < requestedAt)
             this.setState({ loading: false, suggestions: result.results, updatedAt: result.receivedAt  })
         })
     } else {
@@ -36,19 +42,21 @@ class AppComponent extends React.Component {
   }
 
   selectSuggestion(inputValue, user) {
+    console.log(inputValue)
     this.setState({ inputValue, items: [ user ]})
     this.props.setCurrentUser(user)
+    browserHistory.push('/users/' + user.empId)
   }
 
   render() {
     return (
-      <div className="root">
+      <div className="userSearch">
         <Autocomplete
           inputProps={{name: "query", id: "<q></q>uery-autocomplete"}}
           ref="autocomplete"
           value={this.state.inputValue}
           items={this.state.suggestions}
-          getItemValue={item => item.empId}
+          getItemValue={item => item.firstName + ' ' + item.lastName}
           onSelect={this.selectSuggestion}
           onChange={this.loadSuggestions}
           renderItem={(item, isHighlighted) => (
