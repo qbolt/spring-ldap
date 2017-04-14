@@ -14,7 +14,7 @@ const ProfileLink = (props) => {
   )
 }
 
-const Profile = (props) => {
+const Avatar = (props) => {
   return (
     <div>
       <ProfilePic username={this.props.username} />
@@ -23,4 +23,4 @@ const Profile = (props) => {
   )
 }
 
-const profile = <Profile username={'quintonbolt'} />
+const avatar = <Avatar username={'quintonbolt'} />
