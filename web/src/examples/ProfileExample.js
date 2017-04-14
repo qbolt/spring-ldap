@@ -23,4 +23,4 @@ const Profile = (props) => {
   )
 }
 
-const profile = <Profile username={"quintonbolt"} />
+const profile = <Profile username={'quintonbolt'} />

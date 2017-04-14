@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.fedex.airops.dao.User;
+
 public class TestServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger(LDAPHelper.class);
 	

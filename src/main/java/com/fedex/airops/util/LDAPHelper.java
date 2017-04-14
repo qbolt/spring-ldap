@@ -32,6 +32,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.fedex.airops.dao.User;
+
 
 /**
  * Helper class for building UserBeans based on LDAP information 

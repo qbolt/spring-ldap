@@ -1,5 +1,5 @@
 import React from 'react'
-import { browserHistory } from 'react-router'
+import { hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -16,7 +16,7 @@ class SearchOptionsComponent extends React.Component {
 
   onRadioButtonSelect(route) {
     this.props.setSearchOption(route)
-    browserHistory.push('/' + route)
+    hashHistory.push('/' + route)
   }
 
   render() {

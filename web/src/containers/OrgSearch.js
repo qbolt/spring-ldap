@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
+import { hashHistory } from 'react-router'
 import { bindActionCreators } from 'redux'
 
 import { fetchOrg, setCurrentOrg } from '../actions'
@@ -30,7 +30,7 @@ class OrgSearchComponent extends React.Component {
     // Fetch org then dispatch an action to update the state's currentOrg
     this.props.fetchOrg(inputValue)
       .then(response => this.props.setCurrentOrg(inputValue, response.org))
-    browserHistory.push('/org/' + inputValue)
+    hashHistory.push('/org/' + inputValue)
   }
 
   // Called every time the input field is changed

@@ -1,6 +1,6 @@
 // React imports
 import React from 'react';
-import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
+import { Router, Route, IndexRedirect, hashHistory } from 'react-router'
 
 // Links react store to redux components
 import { Provider } from 'react-redux'
@@ -17,7 +17,7 @@ import Org from '../components/Org'
 // (The store is what gives us access to the state via dispatching actions and store.getState())
 const Root = ({ store }) => (
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRedirect to="users"/>
         <Route path="/org" component={OrgSearch}>

@@ -1,5 +1,5 @@
 
-package com.fedex.airops.util;
+package com.fedex.airops.dao;
 
 import java.io.Serializable;
 

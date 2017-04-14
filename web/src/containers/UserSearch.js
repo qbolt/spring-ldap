@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { browserHistory } from 'react-router'
+import { hashHistory } from 'react-router'
 
 import Autocomplete from 'react-autocomplete'
 
@@ -49,7 +49,7 @@ class AppComponent extends React.Component {
   selectSuggestion(inputValue, user) {
     this.setState({ inputValue, items: [ user ]})
     this.props.setCurrentUser(user)
-    browserHistory.push('/users/' + user.empId)
+    hashHistory.push('/users/' + user.empId)
   }
 
   render() {
