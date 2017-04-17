@@ -6,7 +6,7 @@
       <li><Link to="/tobics">Topics</Link></li>
     </ul>
 
-    <Route exact path="/" component={Home}/>
+    <Route exact path="/" component={Header}>
     <Route path="/about" component={About}/>
     <Route path="/topics" component={Topics}/>
   </div>

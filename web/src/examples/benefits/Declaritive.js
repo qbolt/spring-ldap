@@ -19,7 +19,7 @@
 
 /*
   Goals when writing declaratively
-  --------------------------------
+  -------------------------------
   Reduce Side Effects
   Minimize Mutability
   More readable code
@@ -95,6 +95,10 @@ $('#myButton').on('click', function() {
 <MyButton
   onClick={this.handleToggleHighlight}
   highlight={this.state.highlight}/>
+
+  handleToggleHighight() {
+    setState({ highlight: true })
+  }
 
 // Instead of the state living in the DOM, it lives in the component itself (or the redux store)
 

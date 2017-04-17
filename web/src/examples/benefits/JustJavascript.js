@@ -10,9 +10,9 @@ const FriendsList = ({ friends }) => (
     {friends.map(name => <div>{name}</div>)}
   </ul>
 )
+
+export default FriendsList
 /**********************************************/
 
 const friends = ['John', 'Bryan', 'Chris', 'Joe']
 const usageExample = <FriendsList friends={friends}></FriendsList>
-
-export default FriendsList
