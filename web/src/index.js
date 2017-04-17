@@ -6,7 +6,7 @@ import { render } from 'react-dom'
 import configureStore from './configureStore'
 
 // Root component
-import Root from './components/Root'
+import Root from './root/Root'
 
 /****************************************/
 

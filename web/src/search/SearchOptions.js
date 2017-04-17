@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { setSearchOption } from '../actions'
-import RadioButton from '../components/RadioButton'
+import RadioButton from './RadioButton'
 
 class SearchOptionsComponent extends React.Component {
 
