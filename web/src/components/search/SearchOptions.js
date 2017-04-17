@@ -3,7 +3,7 @@ import { hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { setSearchOption } from '../actions'
+import { setSearchOption } from '../../actions'
 import RadioButton from './RadioButton'
 
 class SearchOptionsComponent extends React.Component {
@@ -52,19 +52,9 @@ const createRadioButtons = (onRadioButtonSelect) => {
   return searchOptions.map(option => createRadioButton(option, onRadioButtonSelect))
 }
 
-const mapStateToProps = (state) => {
-  return {
-    searchOption: state.searchOption,
-    org: state.org,
-    user: state.user
-
-  }
-}
-
-// Function called by redux to map the dispatch function to different functions
-const mapPropsToDispatch = (dispatch) => {
-  return bindActionCreators({setSearchOption}, dispatch)
-}
+// Functions called by react-redux to make the state-store available in the components
+const mapStateToProps = ({ searchOption, org, user }) => ({ searchOption, org, user })
+const mapPropsToDispatch = (dispatch) => bindActionCreators({setSearchOption}, dispatch)
 
 const SearchOptions = connect(mapStateToProps, mapPropsToDispatch)(SearchOptionsComponent)
 export default SearchOptions

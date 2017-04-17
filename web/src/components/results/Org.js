@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { setCurrentOrg } from '../actions'
+import { setCurrentOrg } from '../../actions'
 
-import '../app.css'
+import '../../css/app.css'
 
 class OrgComponent extends React.Component {
 
@@ -60,15 +60,9 @@ const fetchOrg = (id) => {
     .then(response => response.json())
 }
 
-const mapStateToProps = (state) => {
-  return {
-    org: state.org
-  }
-}
-
-const mapPropsToDispatch = (dispatch) => {
-  return bindActionCreators({ setCurrentOrg }, dispatch)
-}
+// Functions called by react-redux to make the state-store available in the components
+const mapStateToProps = ({ org }) => ({ org })
+const mapPropsToDispatch = (dispatch) => bindActionCreators({ setCurrentOrg }, dispatch)
 
 const Org = connect(mapStateToProps, mapPropsToDispatch)(OrgComponent)
 export default Org

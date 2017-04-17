@@ -5,9 +5,9 @@ import { hashHistory } from 'react-router'
 
 import Autocomplete from 'react-autocomplete'
 
-import { fetchQuery, setCurrentUser } from '../actions'
+import { fetchQuery, setCurrentUser } from '../../actions'
 
-import '../app.css'
+import '../../css/app.css'
 
 class AppComponent extends React.Component {
 
@@ -36,7 +36,6 @@ class AppComponent extends React.Component {
     if (inputValue.length > 4) {      // TODO - Create shallow copy on java side for id/name so more names can be suggested
       this.props.fetchQuery(inputValue)
         .then(result => {
-          console.log(result)
           if (this.state.updatedAt < requestedAt)
             this.setState({ loading: false, suggestions: result.results, updatedAt: result.receivedAt  })
         })
@@ -73,17 +72,9 @@ class AppComponent extends React.Component {
   }
 }
 
-// Function called by redux to map the redux state to the component's props
-const mapStateToProps = (state) => {
-  return {
-    query: state.query
-  }
-}
-
-// Function called by redux to map the dispatch function to different functions
-const mapPropsToDispatch = (dispatch) => {
-  return bindActionCreators({fetchQuery, setCurrentUser}, dispatch)
-}
+// Functions called by react-redux to make the state-store available in the components
+const mapStateToProps = ({ query }) => ({ query })
+const mapPropsToDispatch = (dispatch) => bindActionCreators({fetchQuery, setCurrentUser}, dispatch)
 
 // Connects component to the redux store via the two supplied functions and component
 const App = connect(mapStateToProps, mapPropsToDispatch)(AppComponent)

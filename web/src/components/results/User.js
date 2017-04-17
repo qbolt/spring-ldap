@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { setCurrentUser } from '../actions'
+import { setCurrentUser } from '../../actions'
 
 class UserComponent extends React.Component {
 
@@ -53,15 +53,9 @@ const fetchUser = (id) => {
     .then(response => response.json())
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  }
-}
-
-const mapPropsToDispatch = (dispatch) => {
-  return bindActionCreators({ setCurrentUser }, dispatch)
-}
+// Functions called by react-redux to make the state-store available in the components
+const mapStateToProps = ({ user }) => ({ user })
+const mapPropsToDispatch = (dispatch) => bindActionCreators({ setCurrentUser }, dispatch)
 
 const User = connect(mapStateToProps, mapPropsToDispatch)(UserComponent)
 export default User

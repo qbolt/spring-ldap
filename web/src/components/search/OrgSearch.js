@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
 import { bindActionCreators } from 'redux'
 
-import { fetchOrg, setCurrentOrg } from '../actions'
+import { fetchOrg, setCurrentOrg } from '../../actions'
 
 class OrgSearchComponent extends React.Component {
 
@@ -50,13 +50,8 @@ class OrgSearchComponent extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {}
-}
+// Function called by react-redux to make the state-store available in the components
+const mapPropsToDispatch = (dispatch) => bindActionCreators({fetchOrg, setCurrentOrg}, dispatch)
 
-const mapPropsToDispatch = (dispatch) => {
-  return bindActionCreators({fetchOrg, setCurrentOrg}, dispatch)
-}
-
-const OrgSearch = connect(mapStateToProps, mapPropsToDispatch)(OrgSearchComponent)
+const OrgSearch = connect(undefined, mapPropsToDispatch)(OrgSearchComponent)
 export default OrgSearch
