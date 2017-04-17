@@ -7,10 +7,10 @@ import { Provider } from 'react-redux'
 
 // Component imports
 import App from './App'
-import UserSearch from '../containers/UserSearch'
-import OrgSearch from '../containers/OrgSearch'
-import User from '../components/User'
-import Org from '../components/Org'
+import UserSearch from '../search/UserSearch'
+import OrgSearch from '../search/OrgSearch'
+import User from '../results/User'
+import Org from '../results/Org'
 
 // Root render component. Renders all of our components within the specified routes.
 // Provider provides the store to all of the components within the application.

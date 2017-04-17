@@ -1,6 +1,6 @@
 import React from 'react'
 
-import SearchOptions from '../containers/SearchOptions'
+import SearchOptions from '../search/SearchOptions'
 
 const App = props => {
     return (
