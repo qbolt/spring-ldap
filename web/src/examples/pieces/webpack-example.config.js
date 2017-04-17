@@ -5,7 +5,7 @@ This is because if you aren't already familiar with what it's for and what the n
 */
 
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports= {
   entry: './index.js',    // Entry file

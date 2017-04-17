@@ -1,14 +1,18 @@
-/*
+./*
   The React API is actually pretty small because it relies heavily on Javascript itself.
 */
 
 import React from 'react'
 
-const friends = ['John', 'Bryan', 'Chris', 'Joe']
-const friendsComponent = () => (
+/***************Friends Component****************/
+const FriendsList = ({ friends }) => (
   <ul>
-    {friends.map(name => <ul>{name}</ul>)}
+    {friends.map(name => <div>{name}</div>)}
   </ul>
 )
+/**********************************************/
 
-export default friendsComponent
+const friends = ['John', 'Bryan', 'Chris', 'Joe']
+const usageExample = <FriendsList friends={friends}></FriendsList>
+
+export default FriendsList

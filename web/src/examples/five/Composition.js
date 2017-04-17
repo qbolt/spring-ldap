@@ -1,26 +1,103 @@
-import React from 'react'
+*
 
-const ProfilePic = (props) => {
+/*
+Composition
+Just as in Java, we favor composition over inheritance. Creating components which are composed of components
+allows us to reason very easily about what each component's responsibility is.
+*/
+
+// Java
+public class ProfilePic {
+  private Image;
+
+  public ProfilePic(String username) {
+    this.image = new Image("http://photos.facebook.com/" + username)
+  }
+}
+
+public class ProfileLink {
+  private String link;
+
+  public ProfileLink(String username) {
+    this.link = "http://photos.facebook.com/" + username;
+  }
+}
+
+public class Avatar {
+  ProfilePic profilePic;
+  ProfileLink profileLink;
+
+  public Avatar(String username) {
+    this.profilePic = new ProfilePic(username);
+    this.profileLink = new ProfileLink(username);
+  }
+}
+
+/******************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Javascript/React
+const ProfilePic = ({ username }) => {
   return (
-    <img src={`http://photos.facebook.com/${this.props.username}`} alt=""/>
+    <img src={`http://photos.facebook.com/${username}`} alt=""/>
   )
 }
 
-const ProfileLink = (props) => {
+const ProfileLink = ({ username }) => {
   return (
-    <a href={`http://facebook.com/${this.props.username}`}>
-      {this.props.username}
+    <a href={`http://facebook.com/${username}`}>
+      {username}
     </a>
   )
 }
 
-const Avatar = (props) => {
+const Avatar = ({ username }) => {
   return (
     <div>
-      <ProfilePic username={this.props.username} />
-      <ProfileLink username={this.props.username} />
+      <ProfilePic username={username} />
+      <ProfileLink username={username} />
     </div>
   )
 }
 
-const avatar = <Avatar username={'quintonbolt'} />
+const Avatar = <Avatar username={'quintonbolt'} />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.

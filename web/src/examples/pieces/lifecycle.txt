@@ -1,0 +1,24 @@
+The `render` method of a component is a pure function. It needs to be stateless.
+There can't be any ajax requests, state manipulation, redux actions, or any other side-effects.
+
+Those things can't happen in the render method, but they are still critical parts of our application that need
+to happen. The place that they happen is in component lifecycle methods.
+
+Lifecycle methods are special methods each component CAN have that allow us to hook into
+the views when specific conditions happen. (when the component first renders or when the component gets updated with new data, etc)
+
+----------------------------------------------------------------------
+
+You can break React's Life Cycle Methods down into two categories.
+
+1) When a component gets mounted to the DOM and unmounted.
+2) When a component receives new data.
+
+----------------------------------------------------------------------
+
+Some things we may need to do when a component is mounted or unmounted
+  - Establish some default props in our component
+  - Set some initial state in our component
+  - Make an Ajax request to fetch some data needed for this component
+  - Set up any listeners (ie Websockets or Firebase listeners)
+  - Remove any listeners you initially set up (when unmounted)
