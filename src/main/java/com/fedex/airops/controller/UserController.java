@@ -15,7 +15,7 @@ import com.fedex.airops.util.LDAPHelper;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:3000") // enables webpack-dev-server to be able to communicate with spring-dev-server
+@CrossOrigin(origins= {"http://localhost:3000", "http://localhost:5000"}) // enables webpack-dev-server to be able to communicate with spring-dev-server
 public class UserController {
 
 	//Convert LDAP helper to service to avoid throwing exceptions to client. Static classes could/should injected services managed by spring.
