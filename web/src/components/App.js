@@ -2,14 +2,13 @@ import React from 'react'
 
 import SearchOptions from '../containers/SearchOptions'
 
-export default class App extends React.Component {
-
-  render() {
+const App = props => {
     return (
       <div className="root">
         <SearchOptions />
-        {this.props.children}
+        {props.children}
       </div>
     )
-  }
 }
+
+export default App
