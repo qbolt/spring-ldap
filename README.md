@@ -1,6 +1,7 @@
-# Installation Instructions
+# Setup instructions
 
 ---
+## Installation
 
 Clone the `git` repo onto your machine
 
@@ -36,7 +37,7 @@ $ npm install
 
 ---
 
-# Development
+## Development
 
 - launch the Spring dev server by running the application in eclipse as a `java application`.
 - launch the webpack-dev-server by typing `npm start` on the command-line.
